@@ -1,8 +1,9 @@
 define([
 	"jquery",
 	"backbone",
-	"/assets/js/app/views/AppView.js"
-], function($, Backbone , AppView) {
+	"/assets/js/app/collections/ShoopitItemCollection.js",
+	"/assets/js/app/views/ShoopitView.js"
+], function($, Backbone , ShoopitItemCollection, ShoopitView) {
 
 	var ShoopitRouter = Backbone.Router.extend({
 
@@ -11,13 +12,9 @@ define([
 		},
 		routes: {
 			'': function() {
-				this.appView = new AppView();
-				this.appView.render();
-				//this.shoppingListIndexView.render();
-				$.mobile.changePage('#main' , { reverse: false, changeHash: false } );
-			},
-			'add': function() {
-				$.mobile.changePage('#add-list' , { reverse: false, changeHash: false } );
+				this.shoopitView = new ShoopitView({
+					collection: new ShoopitItemCollection()
+				});
 			}
 		}
 	});

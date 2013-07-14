@@ -6,7 +6,8 @@ require.config( {
 		"jquery": "/assets/js/vendors/jquery-1.10.2.min",
 		"jquerymobile": "/assets/js/vendors/jquery.mobile-1.3.1.min",
 		"underscore": "/assets/js/vendors/underscore-min",
-		"backbone": "/assets/js/vendors/backbone-min"
+		"backbone": "/assets/js/vendors/backbone-min",
+		"localstorage": "/assets/js/vendors/backbone.localStorage-min"
 	},
 	// Sets the configuration for your third party scripts that are not AMD compatible
 	shim: {
@@ -17,7 +18,7 @@ require.config( {
 	} // end Shim Configuration
 });
 // Includes File Dependencies
-require([ "jquery", "backbone", "/assets/js/app/ShoopitRouter.js" ], function($, Backbone, ShoopitRouter) {
+require([ "jquery", "backbone", "/assets/js/app/ShoopitRouter.js", "localstorage" ], function($, Backbone, ShoopitRouter) {
 	$(document ).on("mobileinit",
 		// Set up the "mobileinit" handler before requiring jQuery Mobile's module
 		function() {
