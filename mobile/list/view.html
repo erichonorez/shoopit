@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Shoopit!</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1"> 
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css" />
+		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+		<script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
+	</head>
+	<body>
+		<!-- header -->
+		<div data-role="header" data-theme="b">
+			<h1>Shoopit!</h1>
+			<a href="list/add.html" data-icon="ok" class="ui-btn-right">Ok</a>
+		</div>
+		<!-- /header -->
+
+		<div data-role="content" data-theme="c">
+			<div data-role="fieldcontain">
+			 	<fieldset data-role="controlgroup">
+			 		<div class="ui-checkbox">
+			 			<input type="checkbox" name="checkbox-1" id="checkbox-1" class="custom" />
+						<label for="checkbox-1">Product1</label>
+			 		</div>
+			 		<div class="ui-checkbox">
+			 			<input type="checkbox" name="checkbox-2" id="checkbox-2" class="custom" />
+						<label for="checkbox-2">Product1</label>
+			 		</div>
+			    </fieldset>
+			</div>
+		</div>
+
+		<!-- footer -->
+		<div data-role="footer" data-theme="b" data-position="fixed">
+			<div class="ui-grid-b">
+				<div class="ui-block-a">
+					<div class="ui-bar ui-bar-a">
+						<button type="button">Lists</button>
+					</div>
+				</div>
+				<div class="ui-block-b">
+					<div class="ui-bar ui-bar-a">
+						<button type="button">Products</button>
+					</div>
+				</div>
+				<div class="ui-block-c">
+					<div class="ui-bar ui-bar-a">
+						<button type="button">Archived</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /footer -->
+	</body>
+</html>
