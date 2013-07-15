@@ -8,7 +8,7 @@ define(["jquery", "backbone"], function($, Backbone) {
 		toggle: function() {
 			this.save({
 				isCompleted: !this.get('isCompleted')
-			})
+			});
 		}
 	});
 	return ShoopitItem;

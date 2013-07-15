@@ -10,7 +10,8 @@ define([
 		el: $('#content-container'),
 
 		events: {
-			'keypress #new-item': 'createOnEnter'
+			'keypress #new-item': 'createOnEnter',
+			'change input[type=checkbox]': 'completeItem'
 		},
 
 		initialize: function() {
@@ -19,6 +20,7 @@ define([
 
 			this.listenTo(this.collection, 'add', this.addItem);
 			this.listenTo(this.collection, 'reset', this.addAllItems);
+			this.collection.fetch();
 		},
 
 		addItem: function(item) {
@@ -26,7 +28,7 @@ define([
 				model: item
 			});
 			var element = itemView.render().el;
-			this.$list.append(element);
+			this.$list.prepend(element);
 			//refresh the list to rendre the new element
 			this.$list.listview('refresh');
 			this.$list.trigger('create');
@@ -47,10 +49,19 @@ define([
 				id: this.collection.length + 1,
 				name: name
 			});
-			this.collection.create(item.toJSON());
-			console.log(this.collection.length);
+			this.collection.add(item);
+			item.save();
 
 			this.$input.val('');
+		},
+
+		completeItem: function(event) {
+			var id = $(event.target).attr('data-id');
+			var item = this.collection.get(id);
+			if (!item) {
+				return;
+			}
+			item.toggle();
 		}
 	});
 	return ShoopitView;
