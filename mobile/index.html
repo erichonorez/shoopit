@@ -16,11 +16,16 @@
 
 	</head>
 	<body>
-		<div data-role="page" data-theme="c">
+		<div data-role="page" data-theme="c" id="page-container">
 			<div data-role="content" id="content-container">
 				<input type="text" id="new-item" placeholder="Add a new item" name="new-item-name"/>
 				<ul data-role="listview" class="ui-listview-inset">
 				</ul>
+			</div>
+			<div data-role="footer" class="ui-bar" data-position="fixed" data-theme="b" id="footer-container">
+				<a href="#" data-role="button" class="filter" id="filter-all">All</a>
+				<a href="#" data-role="button" class="filter" id="filter-remaining">Remaining</a>
+				<a href="#" data-role="button" class="filter" id="filter-bought">Bought</a>
 			</div>
 		</div>
 		

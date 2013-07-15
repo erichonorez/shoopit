@@ -8,13 +8,13 @@ define(["backbone", "/assets/js/app/models/ShoopitItem.js", "localstorage"], fun
 
 		//Get completed items
 		completed: function() {
-			this.filter(function(item) {
-				this.get('isCompleted')
+			return this.filter(function(item) {
+				return item.get('isCompleted')
 			});
 		},
 
 		remaining: function() {
-			this.without.apply(this, this.completed);
+			return this.without.apply(this, this.completed());
 		}
 	});
 	return ShoopitItemCollection;

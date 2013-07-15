@@ -7,11 +7,14 @@ define([
 ], function($, Backbone, ShoopitItem, ShoopitItemCollection, ShoopitItemView) {
 
 	var ShoopitView = Backbone.View.extend({
-		el: $('#content-container'),
+		el: $('#page-container'),
 
 		events: {
 			'keypress #new-item': 'createOnEnter',
-			'change input[type=checkbox]': 'completeItem'
+			'change input[type=checkbox]': 'completeItem',
+			'click a#filter-remaining': 'filterRemaining',
+			'click a#filter-all': 'addAllItems',
+			'click a#filter-bought': 'filterBought'
 		},
 
 		initialize: function() {
@@ -62,6 +65,16 @@ define([
 				return;
 			}
 			item.toggle();
+		},
+
+		filterRemaining: function() {
+			this.$list.html('');
+			_.each(this.collection.remaining(), this.addItem, this);
+		},
+
+		filterBought: function() {
+			this.$list.html('');
+			_.each(this.collection.completed(), this.addItem, this);
 		}
 	});
 	return ShoopitView;
