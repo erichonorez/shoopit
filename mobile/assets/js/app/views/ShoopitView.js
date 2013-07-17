@@ -8,6 +8,7 @@ define([
 
 	var ShoopitView = Backbone.View.extend({
 		el: $('#page-container'),
+		currentFilter: 'all',
 
 		events: {
 			'keypress #new-item': 'createOnEnter',
@@ -21,8 +22,8 @@ define([
 			this.$input = this.$('#new-item');
 			this.$list = this.$('ul');
 
-			this.listenTo(this.collection, 'add', this.addItem);
-			this.listenTo(this.collection, 'reset', this.addAllItems);
+			this.listenTo(this.collection, 'add', this.renderView);
+			this.listenTo(this.collection, 'reset', this.renderView);
 			this.collection.fetch();
 		},
 
@@ -32,12 +33,20 @@ define([
 			});
 			var element = itemView.render().el;
 			this.$list.prepend(element);
+			
+			//listen for event
+			this.listenTo(item, 'change', this.renderView);
+
 			//refresh the list to rendre the new element
 			this.$list.listview('refresh');
 			this.$list.trigger('create');
 		},
 
 		addAllItems: function() {
+			this.currentFilter = 'all';
+			$('.filter').removeClass('ui-btn-active');
+			$('#filter-all').addClass('ui-btn-active');
+
 			this.$list.html('');
 			this.collection.each(this.addItem, this);
 		},
@@ -67,14 +76,37 @@ define([
 			item.toggle();
 		},
 
-		filterRemaining: function() {
+		filterRemaining: function(event) {
+			this.currentFilter = 'remaining';
+			$('.filter').removeClass('ui-btn-active');
+			$('#filter-remaining').addClass('ui-btn-active');
 			this.$list.html('');
 			_.each(this.collection.remaining(), this.addItem, this);
 		},
 
-		filterBought: function() {
+		filterBought: function(event) {
+			this.currentFilter = 'bought';
+			$('.filter').removeClass('ui-btn-active');
+			$('#filter-bought').addClass('ui-btn-active');
 			this.$list.html('');
 			_.each(this.collection.completed(), this.addItem, this);
+		},
+
+		renderView: function() {
+			switch(this.currentFilter) {
+				case 'all':
+					this.addAllItems();
+					break;
+				case 'remaining':
+					this.filterRemaining();
+					break;
+				case 'bought':
+					this.filterBought();
+					break;
+				default:
+					this.addAllItems();
+					break;
+			}
 		}
 	});
 	return ShoopitView;
