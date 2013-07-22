@@ -22,8 +22,8 @@ define([
 			this.$input = this.$('#new-item');
 			this.$list = this.$('ul');
 
-			this.listenTo(this.collection, 'add', this.renderView);
-			this.listenTo(this.collection, 'reset', this.renderView);
+			this.listenTo(this.collection, 'add', this.addItem);
+			this.listenTo(this.collection, 'reset', this.addAllItems);
 			this.collection.fetch();
 		},
 
@@ -94,17 +94,11 @@ define([
 
 		renderView: function() {
 			switch(this.currentFilter) {
-				case 'all':
-					this.addAllItems();
-					break;
 				case 'remaining':
 					this.filterRemaining();
 					break;
 				case 'bought':
 					this.filterBought();
-					break;
-				default:
-					this.addAllItems();
 					break;
 			}
 		}
