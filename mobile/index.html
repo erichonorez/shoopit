@@ -6,6 +6,14 @@
 
 		<!-- css -->
 		<link rel="stylesheet" href="/assets/themes/jquery.mobile.flatui.min.css" />
+		<style>
+		.remove-btn {
+			float: right;
+			background-image: linear-gradient(#ec797e, #aa0910);
+			color: #fff;
+
+		}
+		</style>
 		<!-- /css -->
 
 		<!-- javascript -->
@@ -16,9 +24,9 @@
 	<body>
 		<div data-role="page" data-theme="c" id="page-container">
 			<div data-role="header" data-theme="b" data-position="fixed" id="header-container">
-				<a href="#" data-icon="gear" id="edit-btn">Edit</a>
+				<a href="#" data-role="button" data-icon="gear" id="edit-btn" class="ui-btn-left">Edit</a>
 				<h1>Shoopit</h1>
-				<a href="#" data-icon="star" id="new-btn">New</a>
+				<a href="#" data-role="button" data-icon="star" id="new-btn" class="ui-btn-right">New</a>
 			</div>
 			<div data-role="content" id="content-container">
 				<input type="text" id="new-item" placeholder="Add a new item" name="new-item-name"/>
@@ -26,7 +34,7 @@
 				</ul>
 			</div>
 			<div data-role="footer" class="ui-bar" data-position="fixed" data-theme="b" id="footer-container">
-				<a href="#" data-role="button" class="filter" id="filter-all">All</a>
+				<a href="#" data-role="button" class="filter ui-btn-active" id="filter-all">All</a>
 				<a href="#" data-role="button" class="filter" id="filter-remaining">Remaining</a>
 				<a href="#" data-role="button" class="filter" id="filter-bought">Bought</a>
 			</div>
@@ -34,20 +42,38 @@
 		
 		<!-- TEMPLATES -->
 
+		
 		<script type="text/template" id="shoopit-item-tpl">
 			<div class="ui-grid-b">
 				<div class="ui-block-a" style="float: left; width: 60px;">
-					<input type="checkbox" name="item-<%= id %>" id="item-<%= id %>" data-id="<%= id %>" <%= isCompleted ? "checked" : "" %> />
-					<label for="item-<%= id %>" data-corners="false" data-border="false"></label>
+					<div class="checkbox-container">
+						<input type="checkbox" name="item-<%= id %>" id="item-<%= id %>" data-id="<%= id %>" <%= isCompleted ? "checked" : "" %> class="completed-checkbox" />
+						<label for="item-<%= id %>" data-corners="false" data-border="false"></label>
+					</div>
+					<a class="remove-icon" href="#" style="display: none;" data-id="<%= id %>">
+						<img src="/assets/img/delete-icon.png" alt="remove item" />
+					</a>
 				</div>
 				<div class="ui-block-b" style="padding-top: 8px; float: left; width: 60%">
 					<%= name %>
 				</div>
 				<div class="ui-block-c" style="float: right; width: 35px;">
-					<a href="#" data-role="button" data-icon="arrow-r" data-iconpos="notext" />
+					<a href="#" data-role="button" data-icon="arrow-r" data-iconpos="notext" style="display: none;" class="edit-item-btn" />
+					<a href="#" data-role="button" style="display: none;" class="remove-btn" data-inline="true" data-id="<%= id %>">Remove</a>
 				</div>
 			</div>
+		</script>
+		
+		<script type="text/template" id="shoopit-header-edit-tpl">
+			<a href="#" data-role="button" data-icon="gear" id="cancel-btn" class="ui-btn-left">Cancel</a>
+			<h1 class="ui-title">Shoopit</h1>
+			<a href="#" data-role="button" data-icon="star" id="save-btn" class="ui-btn-right">Save</a>
+		</script>
 
+		<script type="text/template" id="shoopit-header-tpl">
+			<a href="#" data-role="button" data-icon="gear" id="edit-btn" class="ui-btn-left">Edit</a>
+			<h1 class="ui-title">Shoopit</h1>
+			<a href="#" data-role="button" data-icon="star" id="new-btn" class="ui-btn-right">New</a>
 		</script>
 		
 		<!-- /TEMPLATES -->
