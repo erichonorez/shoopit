@@ -9,6 +9,7 @@ define([
 	var ShoopitView = Backbone.View.extend({
 		el: $('#page-container'),
 		currentFilter: 'all',
+		currentMode: 'view',
 
 		events: {
 			'keypress #new-item': 'createOnEnter',
@@ -28,27 +29,56 @@ define([
 			this.$input = this.$('#new-item');
 			this.$list = this.$('ul');
 
+			//event listeners on collection
 			this.listenTo(this.collection, 'add', this.addItem);
 			this.listenTo(this.collection, 'reset', this.addAllItems);
-			this.listenTo(this.collection, 'remove', this.addAllItems);
+
 			this.collection.fetch();
 		},
-
+		/**
+		 * Methods called to render a new item in the listview
+		 */
 		addItem: function(item) {
+			//getCurrentItemTemplate is called to retrieve the
+			//template the ShoopitItemView has to use to render
+			//the item. It depends on the current mode : edit or view
 			var itemView = new ShoopitItemView({
-				model: item
+				model: item,
+				template: this.getCurrentItemTemplate()
 			});
+			//prepend the element to the list (-> like sort desc)
 			var element = itemView.render().el;
 			this.$list.prepend(element);
 			
 			//listen for event
-			this.listenTo(item, 'change', this.renderView);
+			this.stopListening(item, 'change:isCompleted'); //to be sure to not attach two time the same event
+			this.listenTo(item, 'change:isCompleted', this.hideItem); //see comment on hideItem function
 
-			//refresh the list to rendre the new element
-			this.$list.listview('refresh');
+			//refresh the list to rendre the new element - JQM specific
+			this.$list.listview().listview('refresh');
 			this.$list.trigger('create');
 		},
 
+		/**
+		 * When a item change sometimes this one shouldn't be visible anymore
+		 * in the list (-> if you are on the remaining, you check the item, this one
+		 * should disappear.)
+		 *
+		 * Better performance than re-rendering the list.
+		 */
+		hideItem: function(item) {
+			//never hide item when 'all' filter is active
+			if (this.currentFilter == 'all') {
+				return;
+			}
+			//otherwise
+			$('.item-' + item.get('id') + '-container')
+				.closest('li')
+				.hide(500);
+		},
+		/**
+		 * Display all elements
+		 */
 		addAllItems: function() {
 			this.currentFilter = 'all';
 			$('.filter').removeClass('ui-btn-active');
@@ -57,13 +87,18 @@ define([
 			this.$list.html('');
 			this.collection.each(this.addItem, this);
 		},
-
+		/**
+		 * Create an element when the user fill in the input
+		 * box and press return button
+		 */
 		createOnEnter: function(event) {
 			var name = this.$input.val().trim();
+			//if the pressed button isn't return or if the name
+			//is empty -> exit
 			if (event.which !== 13 || !name) {
 				return;
 			}
-
+			//create a new item and save it
 			var item = new ShoopitItem({
 				id: this.collection.length + 1,
 				name: name
@@ -73,7 +108,9 @@ define([
 
 			this.$input.val('');
 		},
-
+		/**
+		 * Mark an item as bought
+		 */
 		completeItem: function(event) {
 			var id = $(event.target).attr('data-id');
 			var item = this.collection.get(id);
@@ -82,7 +119,9 @@ define([
 			}
 			item.toggle();
 		},
-
+		/**
+		 * Display only item to buy
+		 */
 		filterRemaining: function(event) {
 			this.currentFilter = 'remaining';
 			$('.filter').removeClass('ui-btn-active');
@@ -91,7 +130,9 @@ define([
 			this.$list.html('');
 			_.each(this.collection.remaining(), this.addItem, this);
 		},
-
+		/**
+		 * Display item bought
+		 */
 		filterBought: function(event) {
 			this.currentFilter = 'bought';
 			$('.filter').removeClass('ui-btn-active');
@@ -100,55 +141,73 @@ define([
 			this.$list.html('');
 			_.each(this.collection.completed(), this.addItem, this);
 		},
-
+		/**
+		 * Enter in the edit mode
+		 */
 		edit: function(event) {
-			$('.edit-item-btn').toggle();
+			this.currentMode = 'edit';
+			//replace the header
 			$('#header-container').html(
 				$('#shoopit-header-edit-tpl').html()
 			);
+			//re-render the header by JQM
 			$('#header-container').trigger('create');
-
-			$('.remove-icon').show();
-			$('.checkbox-container').hide();
+			//re-render the list
+			this.renderView();
 		},
-
+		/**
+		 * Remove the item
+		 */
+		remove: function(event) {
+			var btn = $(event.target).closest('.remove-btn');
+			var id = btn.attr('data-id');
+			//get item from the persistence layer
+			var item = this.collection.get(id);
+			//hide item from the list
+			$('.item-' + item.get('id') + '-container')
+				.closest('li')
+				.hide(500);
+			//remove the item from persistence layer
+			item.destroy();
+		},
+		/**
+		 * Display the error button
+		 */
 		displayRemoveButton: function(event) {
 			var icon = event.target;
 			if ($(icon).closest('.ui-grid-b').find('.remove-btn').is(':visible')){
 				$(icon).css('transform', 'rotate(180deg)');
 				$(icon).closest('.ui-grid-b').find('.remove-btn').hide();
 				$(icon).closest('.ui-grid-b').find('.edit-item-btn').show();
-				$(icon).closest('.ui-grid-b').find('.ui-block-c').css('width', '35px');
 			} else {
 				$(icon).css('transform', 'rotate(90deg)');
 				$(icon).closest('.ui-grid-b').find('.remove-btn').show();
 				$(icon).closest('.ui-grid-b').find('.edit-item-btn').hide();
-				$(icon).closest('.ui-grid-b').find('.ui-block-c').css('width', '150px');
 			}
 		},
+ 
 
-		remove: function(event) {
-			var btn = $(event.target).closest('.remove-btn');
-			var id = btn.attr('data-id');
-			var item = this.collection.get(id);
-			this.collection.remove(item);
-		},
 
 		create: function(event) {
 			
 		},
-
+		/**
+		 * Go bacl to the view mode
+		 */
 		cancel: function(event) {
-			$('.edit-item-btn').toggle();
-			$('#header-container').html(
-				$('#shoopit-header-tpl').html()
+			this.currentMode = 'view';
+			//change the header
+            $('#header-container').html(
+ 	            $('#shoopit-header-tpl').html()
 			);
-			$('#header-container').trigger('create');
-
-			$('.remove-icon').hide();
-			$('.checkbox-container').show();
+            $('#header-container').trigger('create');
+            //re-render list
+			this.renderView();
 		},
-
+		/**
+		 * Render the list item according to the current
+		 * filter
+		 */
 		renderView: function() {
 			switch(this.currentFilter) {
 				case 'remaining':
@@ -156,6 +215,31 @@ define([
 					break;
 				case 'bought':
 					this.filterBought();
+					break;
+				default:
+					this.addAllItems();
+					break;
+			}
+		},
+		/**
+		 * Return the template object to use to render
+		 * list item according to the active mode: view or edit
+		 */
+		getCurrentItemTemplate: function() {
+			switch (this.currentMode) {
+				case 'edit':
+					if (!this.itemEditTemplate) {
+						this.itemEditTemplate = 
+							_.template($('#shoopit-item-edit-tpl').html());
+					}
+					return this.itemEditTemplate;
+					break;
+				default:
+					if (!this.itemViewTemplate) {
+						this.itemViewTemplate = 
+							_.template($('#shoopit-item-tpl').html());
+					}
+					return this.itemViewTemplate;
 					break;
 			}
 		}

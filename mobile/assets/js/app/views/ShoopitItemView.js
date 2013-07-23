@@ -2,9 +2,11 @@ define(["jquery", "backbone", "/assets/js/app/models/ShoopitItem.js"], function(
 
 	var ShoopitItemView = Backbone.View.extend({
 		tagName: 'li',
+		
 		initialize: function() {
-			this.template = _.template($('#shoopit-item-tpl').html());
+			this.template = this.options.template;
 		},
+
 		render: function() {
 			this.$el.html(this.template(this.model.toJSON()));
 			this.$el.attr({
@@ -13,6 +15,7 @@ define(["jquery", "backbone", "/assets/js/app/models/ShoopitItem.js"], function(
 			});
 			return this;
 		}
+
 	});
 	return ShoopitItemView;
 
