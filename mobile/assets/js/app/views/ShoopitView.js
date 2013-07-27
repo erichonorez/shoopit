@@ -20,7 +20,6 @@ define([
 			'click a#new-btn': 'create',
 			'click a#cancel-btn': 'cancel',
 			'click a#save-btn': 'save',
-			'click a.remove-icon': 'displayRemoveButton',
 			'click a.edit-item-link': 'goToEditPage'
 		},
 
@@ -142,21 +141,6 @@ define([
 			$('#header-container').trigger('create');
 			//re-render the list
 			this.renderView();
-		},
-		/**
-		 * Display the error button
-		 */
-		displayRemoveButton: function(event) {
-			var icon = event.target;
-			if ($(icon).closest('.ui-grid-b').find('.remove-btn').is(':visible')){
-				$(icon).css('transform', 'rotate(180deg)');
-				$(icon).closest('.ui-grid-b').find('.remove-btn').hide();
-				$(icon).closest('.ui-grid-b').find('.edit-item-btn').show();
-			} else {
-				$(icon).css('transform', 'rotate(90deg)');
-				$(icon).closest('.ui-grid-b').find('.remove-btn').show();
-				$(icon).closest('.ui-grid-b').find('.edit-item-btn').hide();
-			}
 		},
 
 		create: function(event) {
