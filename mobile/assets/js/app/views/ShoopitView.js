@@ -22,7 +22,8 @@ define([
 			'click a#cancel-btn': 'cancel',
 			'click a#save-btn': 'save',
 			'click a.remove-icon': 'displayRemoveButton',
-			'click a.remove-btn': 'remove'
+			'click a.remove-btn': 'remove',
+			'click a.edit-item-link': 'goToEditPage'
 		},
 
 		initialize: function() {
@@ -185,8 +186,6 @@ define([
 				$(icon).closest('.ui-grid-b').find('.edit-item-btn').hide();
 			}
 		},
- 
-
 
 		create: function(event) {
 			
@@ -242,6 +241,12 @@ define([
 					return this.itemViewTemplate;
 					break;
 			}
+		},
+
+		goToEditPage: function(event) {
+			var id = $(event.target).closest('a').attr('data-id');
+			Backbone.history.navigate('#/edit/' + id);
+
 		}
 	});
 	return ShoopitView;

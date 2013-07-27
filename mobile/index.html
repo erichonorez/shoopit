@@ -43,9 +43,22 @@
 			</div>
 		</div>
 		
-		<!-- TEMPLATES -->
+		<div data-role="page" data-theme="c" class="page-container" id="edit-page-container">
+			<div data-role="header" data-theme="b" data-position="fixed" class="header-container">
+				<a href="" data-role="button" data-icon="" id="cancel-btn" class="ui-btn-left">Back</a>
+				<h1>Shoopit!</h1>
+				<a href="" data-role="button" data-icon="" id="save-btn" class="ui-btn-right;">Save</a>
+			</div>
+			<div data-role="content" class="content-container">
+				<form id="edit-item-form">
+					<input type="text" name="name" value="<%= name %>" id="item-name-input" />
+					<input type="submit" name="save" value="save" id="item-edit-submit"/>
+				</form>
+			</div>
+		</div>
 
-		
+
+		<!-- TEMPLATES -->
 		<script type="text/template" id="shoopit-item-tpl">
 			<div class="ui-grid-b item-container item-<%= id %>-container">
 				<div class="ui-block-a" style="float: left; width: 60px;">
@@ -65,15 +78,15 @@
 		<script type="text/template" id="shoopit-item-edit-tpl">
 			<div class="ui-grid-b item-container item-<%= id %>-container" style="min-height: 37.1875px;">
 				<div class="ui-block-a" style="float: left; width: 60px; min-height: 37.1875px;">
-					<a class="remove-icon" href="#" data-id="<%= id %>" style="position: relative; top: 7px; left: 12px;">
+					<a class="remove-icon" href="#" data-id="<%= id %>" stylce="position: relative; top: 7px; left: 12px;">
 						<img src="/assets/img/delete-icon.png" alt="remove item" />
 					</a>
 				</div>
 				<div class="ui-block-b" style="float: left; width: 60%; padding-top: 8px;">
 					<%= name %>
 				</div>
-				<div class="ui-block-c" style="float: right; width: 50px; padding-top: 3px;">
-					<a href="#" data-role="button" data-icon="arrow-r" data-iconpos="notext" class="edit-item-btn" />
+				<div class="ui-block-c" style="float: right; width: 30px; padding-top: 3px;">
+					<a href="/#/edit/<%= id %>" class="edit-item-link" data-id="<%= id %>" data-role="button" data-icon="arrow-r" data-iconpos="notext" class="edit-item-btn" />
 					<a href="#" data-role="button" class="remove-btn" data-inline="true" data-id="<%= id %>" style="display: none; margin-bottom; 8px; margin-top: 8px;" data-mini="true">Remove</a>
 				</div>
 			</div>
@@ -90,7 +103,9 @@
 			<h1 class="ui-title">Shoopit</h1>
 			<a href="#" data-role="button" data-icon="star" id="new-btn" class="ui-btn-right">New</a>
 		</script>
-		
+
+		<script type="text/javascript" id="shoopit-edit-item-tpl">
+		</script>
 		<!-- /TEMPLATES -->
 	
 	</body>
