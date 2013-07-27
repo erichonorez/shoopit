@@ -70,7 +70,7 @@
 			<div class="ui-grid-b item-container item-<%= id %>-container">
 				<div class="ui-block-a" style="float: left; width: 60px;">
 					<div class="checkbox-container">
-						<input type="checkbox" name="item-<%= id %>" id="item-<%= id %>" data-id="<%= id %>" <%= isCompleted ? "checked" : "" %> class="completed-checkbox" />
+						<input type="checkbox" name="item-<%= id %>" id="item-<%= id %>" data-id="<%= id %>" <%= isBought ? "checked" : "" %> class="completed-checkbox" />
 						<label for="item-<%= id %>" data-corners="false" data-border="false"></label>
 					</div>
 				</div>
@@ -109,9 +109,6 @@
 			<a href="#" data-role="button" data-icon="gear" id="edit-btn" class="ui-btn-left">Edit</a>
 			<h1 class="ui-title">Shoopit</h1>
 			<a href="#" data-role="button" data-icon="star" id="new-btn" class="ui-btn-right">New</a>
-		</script>
-
-		<script type="text/javascript" id="shoopit-edit-item-tpl">
 		</script>
 		<!-- /TEMPLATES -->
 	

@@ -13,7 +13,6 @@ define([
 
 		events: {
 			'keypress #new-item': 'createOnEnter',
-			'change input[type=checkbox]': 'completeItem',
 			'click a#filter-remaining': 'filterRemaining',
 			'click a#filter-all': 'addAllItems',
 			'click a#filter-bought': 'filterBought',
@@ -52,8 +51,8 @@ define([
 			this.$list.prepend(element);
 			
 			//listen for event
-			this.stopListening(item, 'change:isCompleted'); //to be sure to not attach two time the same event
-			this.listenTo(item, 'change:isCompleted', this.hideItem); //see comment on hideItem function
+			this.stopListening(item, 'change:isBought'); //to be sure to not attach two time the same event
+			this.listenTo(item, 'change:isBought', this.hideItem); //see comment on hideItem function
 
 			//refresh the list to rendre the new element - JQM specific
 			this.$list.listview().listview('refresh');
@@ -140,7 +139,7 @@ define([
 			$('#filter-bought').addClass('ui-btn-active');
 
 			this.$list.html('');
-			_.each(this.collection.completed(), this.addItem, this);
+			_.each(this.collection.bought(), this.addItem, this);
 		},
 		/**
 		 * Enter in the edit mode

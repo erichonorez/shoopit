@@ -7,14 +7,14 @@ define(["backbone", "/assets/js/app/models/ShoopitItem.js", "localstorage"], fun
 		localStorage: new Backbone.LocalStorage('shoopit'),
 
 		//Get completed items
-		completed: function() {
+		bought: function() {
 			return this.filter(function(item) {
-				return item.get('isCompleted')
+				return item.get('isBought')
 			});
 		},
 
 		remaining: function() {
-			return this.without.apply(this, this.completed());
+			return this.without.apply(this, this.bought());
 		}
 	});
 	return ShoopitItemCollection;

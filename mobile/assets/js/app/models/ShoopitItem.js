@@ -3,11 +3,11 @@ define(["jquery", "backbone"], function($, Backbone) {
 	var ShoopitItem = Backbone.Model.extend({
 		defaults: {
 			name: '',
-			isCompleted: false
+			isBought: false
 		},
-		toggle: function() {
+		toggleBought: function() {
 			this.save({
-				isCompleted: !this.get('isCompleted')
+				isBought: !this.get('isBought')
 			});
 		}
 	});

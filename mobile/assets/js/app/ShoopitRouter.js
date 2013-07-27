@@ -25,6 +25,8 @@ define([
 			this.shoopitView = new ShoopitView({
 				collection: this.collection
 			});
+			
+			//routing events
 			this.listenTo(this.shoopitView, 'create', function() {
 				this.navigate('/new', true);
 			});
@@ -38,6 +40,7 @@ define([
 				model: this.collection.get(id)
 			});
 
+			//routing events
 			this.listenTo(this.shoopitItemEditView, 'goToHome', function() {
 				this.navigate('/', true);
 			});
@@ -50,6 +53,7 @@ define([
 				collection: this.collection
 			});
 			
+			//routing events
 			this.listenTo(this.shoopitNewListDialogView, 'back', function() {
 				this.navigate('/', true);
 			});
