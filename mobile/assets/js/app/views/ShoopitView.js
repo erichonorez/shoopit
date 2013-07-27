@@ -21,7 +21,6 @@ define([
 			'click a#cancel-btn': 'cancel',
 			'click a#save-btn': 'save',
 			'click a.remove-icon': 'displayRemoveButton',
-			'click a.remove-btn': 'remove',
 			'click a.edit-item-link': 'goToEditPage'
 		},
 
@@ -109,17 +108,6 @@ define([
 			this.$input.val('');
 		},
 		/**
-		 * Mark an item as bought
-		 */
-		completeItem: function(event) {
-			var id = $(event.target).attr('data-id');
-			var item = this.collection.get(id);
-			if (!item) {
-				return;
-			}
-			item.toggle();
-		},
-		/**
 		 * Display only item to buy
 		 */
 		filterRemaining: function(event) {
@@ -154,21 +142,6 @@ define([
 			$('#header-container').trigger('create');
 			//re-render the list
 			this.renderView();
-		},
-		/**
-		 * Remove the item
-		 */
-		remove: function(event) {
-			var btn = $(event.target).closest('.remove-btn');
-			var id = btn.attr('data-id');
-			//get item from the persistence layer
-			var item = this.collection.get(id);
-			//hide item from the list
-			$('.item-' + item.get('id') + '-container')
-				.closest('li')
-				.hide(500);
-			//remove the item from persistence layer
-			item.destroy();
 		},
 		/**
 		 * Display the error button

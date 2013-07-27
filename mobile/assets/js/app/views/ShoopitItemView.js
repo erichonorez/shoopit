@@ -5,6 +5,7 @@ define(["jquery", "backbone", "/assets/js/app/models/ShoopitItem.js"], function(
 
 		events: {
 			'change input[type=checkbox]': 'isBoughtChangeEventHandler',
+			'click a.remove-btn': 'removeItemEventHandler',
 		},
 		
 		initialize: function() {
@@ -27,6 +28,17 @@ define(["jquery", "backbone", "/assets/js/app/models/ShoopitItem.js"], function(
 		 */
 		isBoughtChangeEventHandler: function(event) {
 			this.model.toggleBought();
+		},
+		/**
+		 * Handler executed when the remove button is pushed.
+		 */
+		removeItemEventHandler: function(event) {
+			//hide item from the list
+			$('.item-' + this.model.get('id') + '-container')
+				.closest('li')
+				.hide(500);
+			//remove the item from persistence layer
+			this.model.destroy();
 		},
 
 	});
