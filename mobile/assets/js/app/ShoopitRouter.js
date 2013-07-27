@@ -3,8 +3,9 @@ define([
 	"backbone",
 	"/assets/js/app/collections/ShoopitItemCollection.js",
 	"/assets/js/app/views/ShoopitView.js",
-	"/assets/js/app/views/ShoopitItemEditView.js"
-], function($, Backbone , ShoopitItemCollection, ShoopitView, ShoopitItemEditView) {
+	"/assets/js/app/views/ShoopitItemEditView.js",
+	"/assets/js/app/views/ShoopitNewListDialogView.js"
+], function($, Backbone , ShoopitItemCollection, ShoopitView, ShoopitItemEditView, ShoopitNewListDialogView) {
 
 	var ShoopitRouter = Backbone.Router.extend({
 
@@ -15,14 +16,17 @@ define([
 
 		routes: {
 			'': 'home',
-			'edit/:id': 'edit'
+			'edit/:id': 'edit',
+			'new': 'create'
 		},
 
 		home: function() {
 			$.mobile.changePage("#page-container" , { reverse: false, changeHash: false } );
-			//console.log('fuck');
 			this.shoopitView = new ShoopitView({
 				collection: this.collection
+			});
+			this.listenTo(this.shoopitView, 'create', function() {
+				this.navigate('/new', true);
 			});
 		},
 
@@ -36,6 +40,23 @@ define([
 
 			this.listenTo(this.shoopitItemEditView, 'goToHome', function() {
 				this.navigate('/', true);
+			});
+		},
+
+		create: function() {
+			$.mobile.changePage( "#dialog-container", { transition: "flip", role: "dialog"} );
+
+			this.shoopitNewListDialogView = new ShoopitNewListDialogView({
+				collection: this.collection
+			});
+			
+			this.listenTo(this.shoopitNewListDialogView, 'back', function() {
+				this.navigate('/', true);
+			});
+
+			this.listenTo(this.shoopitNewListDialogView, 'new', function() {
+				this.navigate('/', true);
+				this.collection.trigger('reset');
 			});
 		}
 	});

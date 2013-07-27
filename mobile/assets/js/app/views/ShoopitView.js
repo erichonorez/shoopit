@@ -188,7 +188,8 @@ define([
 		},
 
 		create: function(event) {
-			
+			this.trigger('create');
+			return false;
 		},
 		/**
 		 * Go bacl to the view mode

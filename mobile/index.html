@@ -29,7 +29,7 @@
 			<div data-role="header" data-theme="b" data-position="fixed" id="header-container">
 				<a href="#" data-role="button" data-icon="gear" id="edit-btn" class="ui-btn-left">Edit</a>
 				<h1>Shoopit</h1>
-				<a href="#" data-role="button" data-icon="star" id="new-btn" class="ui-btn-right">New</a>
+				<a href="#my" data-role="button" data-icon="star" id="new-btn" class="ui-btn-right" data-rel="dialog" data-transition="flip">New</a>
 			</div>
 			<div data-role="content" id="content-container">
 				<input type="text" id="new-item" placeholder="Add a new item" name="new-item-name"/>
@@ -57,6 +57,13 @@
 			</div>
 		</div>
 
+		<div data-role="dialog" id="dialog-container" data-theme="c">
+			<div data-role="content" id="dialog-content-container" data-theme="b">
+				Do you want to create a new list?
+				<a href="#" data-role="button" data-theme="a" id="dialog-back-btn">No</a>
+				<a href="#" data-role="button" data-theme="d" id="dialog-new-btn">Yes</a>
+			</div>
+		</div>
 
 		<!-- TEMPLATES -->
 		<script type="text/template" id="shoopit-item-tpl">
