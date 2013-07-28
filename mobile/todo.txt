@@ -1,0 +1,9 @@
+* utiliser une page de chargement de l'application tant que celle-ci n'est pas prête
+* sur smartphone, le fait de checker un item en check plusieur parfois
+* travailler la transition entre les pages
+* effacer de l'historique les page d'éditions et de dialog
+* améliorer le css
+* améliorer l' HTML
+* améliorer la lisibilité du code
+* améliorer la navigation
+* tester les App Cache pour le mode offline
