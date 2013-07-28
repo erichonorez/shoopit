@@ -19,7 +19,7 @@ require.config( {
 });
 // Includes File Dependencies
 require([ "jquery", "backbone", "/assets/js/app/ShoopitRouter.js", "localstorage" ], function($, Backbone, ShoopitRouter) {
-	$(document ).on("mobileinit",
+	$(document).on("mobileinit",
 		// Set up the "mobileinit" handler before requiring jQuery Mobile's module
 		function() {
 			// Prevents all anchor click handling including the addition of active button state and alternate link bluring.
@@ -29,8 +29,13 @@ require([ "jquery", "backbone", "/assets/js/app/ShoopitRouter.js", "localstorage
 			// set the default transition
 			$.mobile.defaultPageTransition = 'none';
 		}
-	)
-	require(["jquerymobile" ], function() {
+	);
+	//hide application until it is completly loaded
+	$('#page-container').one('pageinit', function() {
+		$('body').show();
+	});
+
+	require(["jquerymobile"], function() {
 		// Instantiates a new Backbone.js Mobile Router
 		this.router = new ShoopitRouter();
 	});
