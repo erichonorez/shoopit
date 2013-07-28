@@ -28,6 +28,8 @@ require([ "jquery", "backbone", "/assets/js/app/ShoopitRouter.js", "localstorage
 			$.mobile.hashListeningEnabled = false;
 			// set the default transition
 			$.mobile.defaultPageTransition = 'none';
+			// Remove the active state for buttons
+			$.mobile.activeBtnClass = 'unused';
 		}
 	);
 	//hide application until it is completly loaded

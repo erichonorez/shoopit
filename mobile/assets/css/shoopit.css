@@ -1,3 +1,10 @@
 .ui-li {
 	min-height: 37px !important;
 }
+
+.ui-btn-hover-b {
+    background:#16a085;
+    border: 1px solid #16a085;
+    color:inherit;
+    text-shadow:inherit;
+}

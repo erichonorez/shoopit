@@ -16,7 +16,7 @@
 	</head>
 	<body style="display: none">
 		<div data-role="page" data-theme="c" id="page-container">
-			<div data-role="header" data-theme="b" data-position="fixed" id="header-container">
+			<div data-role="header" data-theme="b" data-position="fixed" id="header-container" class="header-container">
 				<a href="#" data-role="button" data-icon="gear" id="edit-btn" class="ui-btn-left">Edit</a>
 				<h1>Shoopit</h1>
 				<a href="#my" data-role="button" data-icon="star" id="new-btn" class="ui-btn-right" data-rel="dialog">New</a>
@@ -35,23 +35,25 @@
 		
 		<div data-role="page" data-theme="c" class="page-container" id="edit-page-container">
 			<div data-role="header" data-theme="b" data-position="fixed" class="header-container">
-				<a href="" data-role="button" data-icon="" id="cancel-btn" class="ui-btn-left">Back</a>
+				<a href="" data-role="button" data-icon="arrow-l" id="cancel-btn" class="ui-btn-left">Cancel</a>
 				<h1>Shoopit!</h1>
-				<a href="" data-role="button" data-icon="" id="save-btn" class="ui-btn-right;">Save</a>
 			</div>
 			<div data-role="content" class="content-container">
 				<form id="edit-item-form">
-					<input type="text" name="name" value="<%= name %>" id="item-name-input" />
-					<input type="submit" name="save" value="save" id="item-edit-submit"/>
+					<input type="text" name="name" value="<%= name %>" id="item-name-input" autofocus />
+					<input type="submit" name="save" value="save" id="item-edit-submit" data-theme="b" />
 				</form>
 			</div>
 		</div>
 
-		<div data-role="dialog" id="dialog-container" data-theme="c">
-			<div data-role="content" id="dialog-content-container" data-theme="b">
-				Do you want to create a new list?
-				<a href="#" data-role="button" data-theme="a" id="dialog-back-btn">No</a>
+		<div data-role="page" id="dialog-container" data-overlay-theme="b">
+			<div data-role="header" data-theme="b">
+				<h1>Warning!</h1>
+			</div>
+			<div data-role="content" id="dialog-content-container">
+				<p>Do you want to create a new list?</p>
 				<a href="#" data-role="button" data-theme="d" id="dialog-new-btn">Yes</a>
+				<a href="#" data-role="button" data-theme="c" id="dialog-back-btn">No</a>
 			</div>
 		</div>
 
@@ -90,7 +92,7 @@
 		</script>
 		
 		<script type="text/template" id="shoopit-header-edit-tpl">
-			<a href="#" data-role="button" data-icon="gear" id="cancel-btn" class="ui-btn-left">Cancel</a>
+			<a href="#" data-role="button" data-icon="arrow-l" id="cancel-btn" class="ui-btn-left">Back</a>
 			<h1 class="ui-title">Shoopit</h1>
 		</script>
 
