@@ -1,6 +1,6 @@
-* utiliser une page de chargement de l'application tant que celle-ci n'est pas prête OK
-* sur smartphone, le fait de checker un item en check plusieur parfois
-* travailler la transition entre les pages OK
+* utiliser une page de chargement de l'application tant que celle-ci n'est pas prête -- OK
+* sur smartphone, le fait de checker un item en check plusieur parfois -- OK
+* travailler la transition entre les pages -- OK
 * effacer de l'historique les page d'éditions et de dialog
 * améliorer le css
 * améliorer l' HTML
