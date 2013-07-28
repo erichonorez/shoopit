@@ -15,7 +15,7 @@ define(["jquery", "backbone", "/assets/js/app/models/ShoopitItem.js"], function(
 			//because it depends on the current mode (edit - view)
 			this.template = this.options.template;
 
-			this.listenTo(this.model, 'change', this.modelChangeEventHandler);
+			this.listenTo(this.model, 'change:name', this.nameChangeEventHandler);
 		},
 
 		render: function() {
@@ -31,7 +31,7 @@ define(["jquery", "backbone", "/assets/js/app/models/ShoopitItem.js"], function(
 		 * and the view is re-rendered, the parent listview 
 		 * need to be refreshed.
 		 */
-		modelChangeEventHandler: function() {
+		nameChangeEventHandler: function() {
 			this.render();
 			$('ul').listview().listview('refresh');
 			$('ul').trigger('create');
@@ -52,7 +52,7 @@ define(["jquery", "backbone", "/assets/js/app/models/ShoopitItem.js"], function(
 			//hide item from the list
 			$('.item-' + this.model.get('id') + '-container')
 				.closest('li')
-				.hide(500);
+				.hide(200);
 			//remove the item from persistence layer
 			this.model.destroy();
 		},

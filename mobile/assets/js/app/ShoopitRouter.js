@@ -47,7 +47,7 @@ define([
 		},
 
 		create: function() {
-			$.mobile.changePage( "#dialog-container", { transition: "flip", role: "dialog"} );
+			$.mobile.changePage( "#dialog-container", { transition: "none", role: "dialog"} );
 
 			this.shoopitNewListDialogView = new ShoopitNewListDialogView({
 				collection: this.collection

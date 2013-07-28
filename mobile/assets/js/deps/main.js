@@ -26,6 +26,8 @@ require([ "jquery", "backbone", "/assets/js/app/ShoopitRouter.js", "localstorage
 			$.mobile.linkBindingEnabled = false;
 			// Disabling this will prevent jQuery Mobile from handling hash changes
 			$.mobile.hashListeningEnabled = false;
+			// set the default transition
+			$.mobile.defaultPageTransition = 'none';
 		}
 	)
 	require(["jquerymobile" ], function() {

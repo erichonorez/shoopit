@@ -72,7 +72,7 @@ define([
 			//otherwise
 			$('.item-' + item.get('id') + '-container')
 				.closest('li')
-				.hide(500);
+				.hide(200);
 		},
 		/**
 		 * Display all elements
