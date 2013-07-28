@@ -7,10 +7,15 @@ define(["jquery", "backbone", "/assets/js/app/models/ShoopitItem.js"], function(
 			'change input[type=checkbox]': 'isBoughtChangeEventHandler',
 			'click a.remove-btn': 'removeItemEventHandler',
 			'click a.remove-icon': 'displayRemoveButtonEventHandler',
+			'click a.edit-item-link': 'goToEditPageEventHandler'
 		},
 		
 		initialize: function() {
+			//the template is injected by the application view
+			//because it depends on the current mode (edit - view)
 			this.template = this.options.template;
+
+			this.listenTo(this.model, 'change', this.modelChangeEventHandler);
 		},
 
 		render: function() {
@@ -20,6 +25,16 @@ define(["jquery", "backbone", "/assets/js/app/models/ShoopitItem.js"], function(
 				'data-filer': true
 			});
 			return this;
+		},
+		/**
+		 * When a change is made on the model
+		 * and the view is re-rendered, the parent listview 
+		 * need to be refreshed.
+		 */
+		modelChangeEventHandler: function() {
+			this.render();
+			$('ul').listview().listview('refresh');
+			$('ul').trigger('create');
 		},
 
 		/**
@@ -58,6 +73,14 @@ define(["jquery", "backbone", "/assets/js/app/models/ShoopitItem.js"], function(
 				$(icon).closest('.ui-grid-b').find('.edit-item-btn').hide();
 			}
 		},
+
+		/**
+		 * Event handler called to edit the current item
+		 */		
+		goToEditPageEventHandler: function(event) {
+			Backbone.history.navigate('#/edit/' + this.model.get('id'));
+
+		}
 
 	});
 	return ShoopitItemView;

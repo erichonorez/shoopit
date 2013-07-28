@@ -19,8 +19,7 @@ define([
 			'click a#edit-btn': 'edit',
 			'click a#new-btn': 'create',
 			'click a#cancel-btn': 'cancel',
-			'click a#save-btn': 'save',
-			'click a.edit-item-link': 'goToEditPage'
+			'click a#save-btn': 'save'
 		},
 
 		initialize: function() {
@@ -44,13 +43,14 @@ define([
 				model: item,
 				template: this.getCurrentItemTemplate()
 			});
-			//prepend the element to the list (-> like sort desc)
-			var element = itemView.render().el;
-			this.$list.prepend(element);
-			
+
 			//listen for event
 			this.stopListening(item, 'change:isBought'); //to be sure to not attach two time the same event
 			this.listenTo(item, 'change:isBought', this.hideItem); //see comment on hideItem function
+
+			//prepend the element to the list (-> like sort desc)
+			var element = itemView.render().el;
+			this.$list.prepend(element);
 
 			//refresh the list to rendre the new element - JQM specific
 			this.$list.listview().listview('refresh');
@@ -198,12 +198,6 @@ define([
 					return this.itemViewTemplate;
 					break;
 			}
-		},
-
-		goToEditPage: function(event) {
-			var id = $(event.target).closest('a').attr('data-id');
-			Backbone.history.navigate('#/edit/' + id);
-
 		}
 	});
 	return ShoopitView;
