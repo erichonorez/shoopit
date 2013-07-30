@@ -10,7 +10,7 @@ define(['jquery', 'backbone'], function($, Backbone) {
 		},
 
 		back: function(event) {
-			this.trigger('back');
+			Backbone.history.navigate('/', true);
 			return false;
 		},
 
@@ -18,7 +18,7 @@ define(['jquery', 'backbone'], function($, Backbone) {
 			_.each(this.collection.toArray(), function(item) {
 				item.destroy();
 			});
-			this.trigger('new');
+			Backbone.history.navigate('/', true);
 			return false;
 		}
 

@@ -4,7 +4,8 @@ define(["jquery", "backbone"], function($, Backbone) {
 		el: $('#edit-page-container'),
 
 		events: {
-			'submit #edit-item-form': 'save'
+			'submit #edit-item-form': 'save',
+			'click a#cancel-btn': 'cancel'
 		},
 
 		initialize: function() {
@@ -15,8 +16,12 @@ define(["jquery", "backbone"], function($, Backbone) {
 			this.model.save({
 				'name': this.$('#item-name-input').val()
 			});
-			this.trigger('goToHome');
-			
+			Backbone.history.navigate('/', true);
+			return false;
+		},
+
+		cancel: function() {
+			Backbone.history.navigate('/', true);
 			return false;
 		}
 

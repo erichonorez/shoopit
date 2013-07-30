@@ -144,7 +144,7 @@ define([
 		},
 
 		create: function(event) {
-			this.trigger('create');
+			Backbone.history.navigate('/new', true);
 			return false;
 		},
 		/**

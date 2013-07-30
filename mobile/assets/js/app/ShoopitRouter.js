@@ -30,11 +30,6 @@ define([
 			this.shoopitView = new ShoopitView({
 				collection: this.collection
 			});
-			
-			//routing events
-			this.listenTo(this.shoopitView, 'create', function() {
-				this.navigate('/new', true);
-			});
 		},
 
 		edit: function(id) {
@@ -42,11 +37,6 @@ define([
 
 			this.shoopitItemEditView = new ShoopitItemEditView({
 				model: this.collection.get(id)
-			});
-
-			//routing events
-			this.listenTo(this.shoopitItemEditView, 'goToHome', function() {
-				this.navigate('/', true);
 			});
 		},
 
@@ -57,15 +47,6 @@ define([
 			}
 			this.shoopitNewListDialogView = new ShoopitNewListDialogView({
 				collection: this.collection
-			});
-			
-			//routing events
-			this.listenTo(this.shoopitNewListDialogView, 'back', function() {
-				this.navigate('/', true);
-			});
-
-			this.listenTo(this.shoopitNewListDialogView, 'new', function() {
-				this.navigate('/', true);
 			});
 		}
 	});
