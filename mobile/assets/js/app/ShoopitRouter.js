@@ -22,6 +22,11 @@ define([
 
 		home: function() {
 			$.mobile.changePage("#page-container" , { reverse: false, changeHash: false } );
+			//if the view is already instantiated don't instantiate it once again
+			if (this.shoopitView) {
+				return;
+			}
+
 			this.shoopitView = new ShoopitView({
 				collection: this.collection
 			});
@@ -34,7 +39,6 @@ define([
 
 		edit: function(id) {
 			$.mobile.changePage("#edit-page-container" , { reverse: false, changeHash: false } );
-			this.collection.fetch();
 
 			this.shoopitItemEditView = new ShoopitItemEditView({
 				model: this.collection.get(id)
@@ -48,7 +52,9 @@ define([
 
 		create: function() {
 			$.mobile.changePage( "#dialog-container", { reverse: false, changeHash: false } );
-
+			if (this.shoopitNewListDialogView) {
+				return;
+			}
 			this.shoopitNewListDialogView = new ShoopitNewListDialogView({
 				collection: this.collection
 			});
@@ -60,7 +66,6 @@ define([
 
 			this.listenTo(this.shoopitNewListDialogView, 'new', function() {
 				this.navigate('/', true);
-				this.collection.trigger('reset');
 			});
 		}
 	});

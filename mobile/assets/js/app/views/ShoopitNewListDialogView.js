@@ -15,7 +15,9 @@ define(['jquery', 'backbone'], function($, Backbone) {
 		},
 
 		new: function(event) {
-			_.invoke(this.collection.toArray(), 'destroy');
+			_.each(this.collection.toArray(), function(item) {
+				item.destroy();
+			});
 			this.trigger('new');
 			return false;
 		}

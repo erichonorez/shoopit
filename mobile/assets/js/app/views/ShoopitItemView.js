@@ -7,7 +7,7 @@ define(["jquery", "backbone", "/assets/js/app/models/ShoopitItem.js"], function(
 			'change input[type=checkbox]': 'isBoughtChangeEventHandler',
 			'click a.remove-btn': 'removeItemEventHandler',
 			'click a.remove-icon': 'displayRemoveButtonEventHandler',
-			'click a.edit-item-link': 'goToEditPageEventHandler'
+			'click a.edit-item-link': 'goToEditPageEventHandler',
 		},
 		
 		initialize: function() {
@@ -16,6 +16,7 @@ define(["jquery", "backbone", "/assets/js/app/models/ShoopitItem.js"], function(
 			this.template = this.options.template;
 
 			this.listenTo(this.model, 'change:name', this.nameChangeEventHandler);
+			this.listenTo(this.model, 'remove', this.remove);
 		},
 
 		render: function() {
@@ -79,7 +80,6 @@ define(["jquery", "backbone", "/assets/js/app/models/ShoopitItem.js"], function(
 		 */		
 		goToEditPageEventHandler: function(event) {
 			Backbone.history.navigate('#/edit/' + this.model.get('id'));
-
 		}
 
 	});

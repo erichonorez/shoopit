@@ -1,4 +1,5 @@
 var express = require('express');
+var http = require('http');
 var app = express();
 app.configure(function () {
     app.use(
@@ -6,4 +7,5 @@ app.configure(function () {
         express.static(__dirname + '/../mobile/') //where your static content is located in your filesystem
     );
 });
+
 app.listen(3000); //the port you want to use
