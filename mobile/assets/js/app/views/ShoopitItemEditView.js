@@ -1,7 +1,7 @@
 define(["jquery", "backbone"], function($, Backbone) {
 
 	var ShoopitItemEditView = Backbone.View.extend({
-		el: $('#edit-page-container'),
+		el: $('#shoopit-edit-page-container'),
 
 		events: {
 			'submit #edit-item-form': 'save',

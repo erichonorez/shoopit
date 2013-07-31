@@ -8,3 +8,35 @@
     color:inherit;
     text-shadow:inherit;
 }
+body {
+	/* hide body until application is initialized */
+	display: none;
+}
+.item-tpl-ui-block-a,
+.item-edit-tpl-ui-block-a  {
+	float: left;
+	width: 60px !important;
+}
+.item-tpl-ui-block-b,
+.item-edit-tpl-ui-block-b {
+	padding-top: 8px !important;
+	float: left;
+}
+.item-edit-tpl-ui-block-b {
+	width: 60%;
+}
+.item-tpl-ui-block-c {
+	float: right;
+	width: 35px;
+}
+.item-edit-container {
+	 min-height: 37.1875px;
+}
+.item-edit-tpl-ui-block-c {
+	float: right;
+	width: 100px;
+}
+.remove-icon img {
+	margin-left: 15px;
+	margin-top: 5px;
+}

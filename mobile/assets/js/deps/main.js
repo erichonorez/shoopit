@@ -33,7 +33,7 @@ require([ "jquery", "backbone", "/assets/js/app/ShoopitRouter.js", "localstorage
 		}
 	);
 	//hide application until it is completly loaded
-	$('#page-container').one('pageinit', function() {
+	$('#shoopit-page-container').one('pageinit', function() {
 		$('body').show();
 	});
 

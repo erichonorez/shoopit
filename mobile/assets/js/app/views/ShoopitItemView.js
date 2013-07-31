@@ -14,7 +14,7 @@ define(["jquery", "backbone", "/assets/js/app/models/ShoopitItem.js"], function(
 			//the template is injected by the application view
 			//because it depends on the current mode (edit - view)
 			this.template = this.options.template;
-
+			this.$list = $('items-listview');
 			this.listenTo(this.model, 'change:name', this.nameChangeEventHandler);
 			this.listenTo(this.model, 'remove', this.remove);
 		},
@@ -34,8 +34,9 @@ define(["jquery", "backbone", "/assets/js/app/models/ShoopitItem.js"], function(
 		 */
 		nameChangeEventHandler: function() {
 			this.render();
-			$('ul').listview().listview('refresh');
-			$('ul').trigger('create');
+
+			this.$list.listview().listview('refresh');
+			this.$list.trigger('create');
 		},
 
 		/**

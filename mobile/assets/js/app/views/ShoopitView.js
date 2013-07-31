@@ -7,12 +7,12 @@ define([
 ], function($, Backbone, ShoopitItem, ShoopitItemCollection, ShoopitItemView) {
 
 	var ShoopitView = Backbone.View.extend({
-		el: $('#page-container'),
+		el: $('#shoopit-page-container'),
 		currentFilter: 'all',
 		currentMode: 'view',
 
 		events: {
-			'keypress #new-item': 'createOnEnter',
+			'keypress #new-item-input': 'createOnEnter',
 			'click a#filter-remaining': 'filterRemaining',
 			'click a#filter-all': 'addAllItems',
 			'click a#filter-bought': 'filterBought',
@@ -23,8 +23,9 @@ define([
 		},
 
 		initialize: function() {
-			this.$input = this.$('#new-item');
-			this.$list = this.$('ul');
+			this.$input = this.$('#new-item-input');
+			this.$list = this.$('#items-listview');
+			this.$header = this.$('#shoopit-header-container');
 
 			//event listeners on collection
 			this.listenTo(this.collection, 'add', this.addItem);
@@ -128,38 +129,45 @@ define([
 			this.$list.html('');
 			_.each(this.collection.bought(), this.addItem, this);
 		},
+
+		create: function(event) {
+			Backbone.history.navigate('/new', true);
+			return false;
+		},
+
 		/**
 		 * Enter in the edit mode
 		 */
 		edit: function(event) {
 			this.currentMode = 'edit';
 			//replace the header
-			$('#header-container').html(
-				$('#shoopit-header-edit-tpl').html()
-			);
-			//re-render the header by JQM
-			$('#header-container').trigger('create');
+			this.switchHeader('#shoopit-header-edit-tpl');
 			//re-render the list
 			this.renderView();
 		},
 
-		create: function(event) {
-			Backbone.history.navigate('/new', true);
-			return false;
-		},
 		/**
 		 * Go bacl to the view mode
 		 */
 		cancel: function(event) {
 			this.currentMode = 'view';
 			//change the header
-            $('#header-container').html(
- 	            $('#shoopit-header-tpl').html()
-			);
-            $('#header-container').trigger('create');
+            this.switchHeader('#shoopit-header-tpl');
             //re-render list
 			this.renderView();
 		},
+
+		/**
+		 * Change the the header with the template having
+		 * the id in parameter
+		 */
+		switchHeader: function(headerId) {
+			this.$header.html(
+ 	            $(headerId).html()
+			);
+            this.$header.trigger('create');
+		},
+
 		/**
 		 * Render the list item according to the current
 		 * filter

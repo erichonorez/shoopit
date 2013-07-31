@@ -2,11 +2,11 @@ define(['jquery', 'backbone'], function($, Backbone) {
 
 	var ShoopitNewListDialogView = Backbone.View.extend({
 
-		el: $('#dialog-content-container'),
+		el: $('#shoopit-new-list-page-container'),
 		
 		events: {
-			'click #dialog-back-btn': 'back',
-			'click #dialog-new-btn': 'new'
+			'click #back-new-list-btn': 'back',
+			'click #new-list-btn': 'new'
 		},
 
 		back: function(event) {

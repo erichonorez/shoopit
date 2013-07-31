@@ -14,26 +14,26 @@
 		<!-- /javascript -->
 
 	</head>
-	<body style="display: none">
-		<div data-role="page" data-theme="c" id="page-container">
-			<div data-role="header" data-theme="b" data-position="fixed" id="header-container" class="header-container">
+	<body>
+		<div data-role="page" data-theme="c" id="shoopit-page-container" class="page-container">
+			<div data-role="header" data-theme="b" data-position="fixed" id="shoopit-header-container" class="header-container">
 				<a href="#" data-role="button" data-icon="gear" id="edit-btn" class="ui-btn-left">Edit</a>
 				<h1>Shoopit</h1>
 				<a href="#my" data-role="button" data-icon="star" id="new-btn" class="ui-btn-right" data-rel="dialog">New</a>
 			</div>
-			<div data-role="content" id="content-container">
-				<input type="text" id="new-item" placeholder="Add a new item" name="new-item-name"/>
+			<div data-role="content" id="shoopit-content-container">
+				<input type="text" id="new-item-input" placeholder="Add a new item" name="new-item-name"/>
 				<ul data-role="listview" class="ui-listview-inset" id="items-listview">
 				</ul>
 			</div>
-			<div data-role="footer" class="ui-bar" data-position="fixed" data-theme="b" id="footer-container">
+			<div data-role="footer" class="ui-bar" data-position="fixed" data-theme="b" id="shoopit-footer-container">
 				<a href="#" data-role="button" class="filter ui-btn-active" id="filter-all">All</a>
 				<a href="#" data-role="button" class="filter" id="filter-remaining">Remaining</a>
 				<a href="#" data-role="button" class="filter" id="filter-bought">Bought</a>
 			</div>
 		</div>
 		
-		<div data-role="page" data-theme="c" class="page-container" id="edit-page-container">
+		<div data-role="page" data-theme="c" class="page-container" id="shoopit-edit-page-container">
 			<div data-role="header" data-theme="b" data-position="fixed" class="header-container">
 				<a href="" data-role="button" data-icon="arrow-l" id="cancel-btn" class="ui-btn-left">Cancel</a>
 				<h1>Shoopit!</h1>
@@ -46,45 +46,45 @@
 			</div>
 		</div>
 
-		<div data-role="page" id="dialog-container" data-overlay-theme="b">
+		<div data-role="page" id="shoopit-new-list-page-container" data-overlay-theme="b">
 			<div data-role="header" data-theme="b">
 				<h1>Warning!</h1>
 			</div>
-			<div data-role="content" id="dialog-content-container">
+			<div data-role="content" id="shoopit-new-list-page-content-container">
 				<p>Do you want to create a new list?</p>
-				<a href="#" data-role="button" data-theme="d" id="dialog-new-btn">Yes</a>
-				<a href="#" data-role="button" data-theme="c" id="dialog-back-btn">No</a>
+				<a href="#" data-role="button" data-theme="d" id="new-list-btn">Yes</a>
+				<a href="#" data-role="button" data-theme="c" id="back-new-list-btn">No</a>
 			</div>
 		</div>
 
 		<!-- TEMPLATES -->
 		<script type="text/template" id="shoopit-item-tpl">
 			<div class="ui-grid-b item-container item-<%= id %>-container">
-				<div class="ui-block-a" style="float: left; width: 60px;">
+				<div class="ui-block-a item-tpl-ui-block-a">
 					<div class="checkbox-container">
 						<input type="checkbox" name="item-<%= id %>" id="item-<%= id %>" data-id="<%= id %>" <%= isBought ? "checked" : "" %> class="completed-checkbox" />
 						<label for="item-<%= id %>" data-corners="false" data-border="false"></label>
 					</div>
 				</div>
-				<div class="ui-block-b" style="padding-top: 8px; float: left; width: 60%">
+				<div class="ui-block-b item-tpl-ui-block-b">
 					<%= name %>
 				</div>
-				<div class="ui-block-c" style="float: right; width: 35px;">
+				<div class="ui-block-c item-tpl-ui-block-c">
 				</div>
 			</div>
 		</script>
 
 		<script type="text/template" id="shoopit-item-edit-tpl">
-			<div class="ui-grid-b item-container item-<%= id %>-container" style="min-height: 37.1875px;">
-				<div class="ui-block-a" style="width: 15%;">
+			<div class="ui-grid-b item-container item-<%= id %>-container item-edit-container">
+				<div class="ui-block-a item-edit-tpl-ui-block-a">
 					<a class="remove-icon" href="#" data-id="<%= id %>" data-inline="true">
 						<img src="/assets/img/delete-icon.png" alt="remove item" />
 					</a>
 				</div>
-				<div class="ui-block-b" style="width: 55%;">
+				<div class="ui-block-b item-edit-tpl-ui-block-b">
 					<%= name %>
 				</div>
-				<div class="ui-block-c" style="text-align: right; width: 25%;">
+				<div class="ui-block-c item-edit-tpl-ui-block-c">
 					<a href="/#/edit/<%= id %>" data-inline="true" data-id="<%= id %>" data-role="button" class="edit-item-btn" data-theme="b" data-mini="true">Edit</a>
 					<a href="#" data-role="button" class="remove-btn" data-inline="true" data-id="<%= id %>" data-mini="true" data-theme="d" style="display: none;">Remove</a>
 				</div>
