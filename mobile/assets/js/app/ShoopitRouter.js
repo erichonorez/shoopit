@@ -4,7 +4,7 @@ define([
 	"/assets/js/app/collections/ShoopitItemCollection.js",
 	"/assets/js/app/views/ShoopitView.js",
 	"/assets/js/app/views/ShoopitItemEditView.js",
-	"/assets/js/app/views/ShoopitNewListDialogView.js"
+	"/assets/js/app/views/ShoopitNewListView.js"
 ], function($, Backbone , ShoopitItemCollection, ShoopitView, ShoopitItemEditView, ShoopitNewListDialogView) {
 
 	var ShoopitRouter = Backbone.Router.extend({
